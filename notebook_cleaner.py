@@ -5,10 +5,10 @@ def clean_notebook(data):
         raise ValueError("bad version of notebook")
 
 
-with open("test_data.ipynb", encoding="utf-8") as soubor:
-    obsah = soubor.read()
-data = json.loads(obsah)
+with open("test_data.ipynb", encoding="utf-8") as input_file:
+    content = input_file.read()
+data = json.loads(content)
 clean_notebook(data)
 
-vysledek = json.dumps(data, ensure_ascii=False, indent=2 )
-print(vysledek)
+result = json.dumps(data, ensure_ascii=False, indent=2 )
+print(result)
