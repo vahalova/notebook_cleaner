@@ -7,6 +7,9 @@ def clean_notebook(data):
     for cell in data["cells"]:
         if "execution_count" in cell:
             cell["execution_count"] = None
+        for output in cell.get("outputs", []):
+            if "execution_count" in output:
+                output["execution_count"] = None
 
 with open("test_data.ipynb", encoding="utf-8") as input_file:
     content = input_file.read()
