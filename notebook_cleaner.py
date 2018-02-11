@@ -3,8 +3,10 @@ import json
 def clean_notebook(data):
     if data["nbformat"] != 4 or data["nbformat_minor"] <2:
         raise ValueError("bad version of notebook")
+
     for cell in data["cells"]:
-        cell["execution_count"] = None
+        if "execution_count" in cell:
+            cell["execution_count"] = None
 
 with open("test_data.ipynb", encoding="utf-8") as input_file:
     content = input_file.read()
