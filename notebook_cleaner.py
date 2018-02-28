@@ -2,19 +2,20 @@ import json
 import click
 
 @click.command()
-@click.argument("file", nargs=1)
+@click.argument("files", nargs=-1)
 @click.option('-i/','--inplace/--no-inplace', help="overwrite the file with its cleaned-up version")
-def main(file, inplace):
-    with open(file, encoding="utf-8") as input_file:
-        content = input_file.read()
-    data = json.loads(content)
-    clean_notebook(data)
-    result = json.dumps(data, ensure_ascii=False, indent=4)   
-    if inplace:
-        with open(file, "w", encoding="utf-8") as output_file:
-            output_file.write(result)
-    else:          
-        print(result)
+def main(files, inplace):
+    for file in files:
+        with open(file, encoding="utf-8") as input_file:
+            content = input_file.read()
+        data = json.loads(content)
+        clean_notebook(data)
+        result = json.dumps(data, ensure_ascii=False, indent=4)   
+        if inplace:
+            with open(file, "w", encoding="utf-8") as output_file:
+                output_file.write(result)
+        else:          
+            print(result)
 
 def clean_notebook(data):
     if data["nbformat"] != 4 or data["nbformat_minor"] < 2:
