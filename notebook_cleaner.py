@@ -10,11 +10,11 @@ def main(files, inplace):
             content = input_file.read()
         data = json.loads(content)
         clean_notebook(data)
-        result = json.dumps(data, ensure_ascii=False, indent=4)   
+        result = json.dumps(data, ensure_ascii=False, indent=1)   
         if inplace:
             with open(file, "w", encoding="utf-8") as output_file:
                 output_file.write(result)
-        else:          
+        else:
             print(result)
 
 def clean_notebook(data):
